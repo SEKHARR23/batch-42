@@ -1,0 +1,46 @@
+<project name="javaproject">
+
+<!--
+ceate a required folder structure
+complie the source code - src. and target .class and put into target folder
+create jar - source is .class files and targetbis .jar
+copy java script in a seperate folder from WEB folder
+Zip - create the zip folder with jar and js files
+
+-->
+
+ <target name="clean">  
+    <delete dir="dist"/>
+	<delete dir="output"/>
+	<delete dir="target"/>
+ </target>
+  
+<target name="init" depends="clean">  
+    <mkdir dir="output"/>
+	<mkdir dir="output/classes"/>
+	<mkdir dir="dist"/>
+	<mkdir dir="target"/>
+ </target>
+
+<target name="compile" depends="init">  
+    <javac srcdir="src"
+	destdir="output/classes"/>
+ </target>
+ 
+<target name="jar" depends="complie"> 
+    <jar destfile="dist/app.jar" basedir="output/classes"/>
+ </target> 
+
+ <target name="copyweb" depends="jar"> 
+    <copy todir="dist">
+	<fileset dir="src/web"/>
+	</copy>
+ </target>
+  
+ <target name="zip" depends="copyweb"> 
+    <zip destfile="trget/app1.0.zip"
+	basedir="dist"/>
+	</target>
+	
+</project>
+
