@@ -1,4 +1,4 @@
-<project name="javaproject">
+<project name="java-project" default="zip">
 
 <!--
 ceate a required folder structure
@@ -9,6 +9,12 @@ Zip - create the zip folder with jar and js files
 
 -->
 
+<property file="build.properties" />
+
+<!-- <property name="var" value="3.0" />
+     <property name="dir" value="output/classes" />
+-->
+
  <target name="clean">  
     <delete dir="dist"/>
 	<delete dir="output"/>
@@ -16,19 +22,18 @@ Zip - create the zip folder with jar and js files
  </target>
   
 <target name="init" depends="clean">  
-    <mkdir dir="output"/>
-	<mkdir dir="output/classes"/>
+    <mkdir dir="${dir}"/>
 	<mkdir dir="dist"/>
 	<mkdir dir="target"/>
  </target>
 
 <target name="compile" depends="init">  
     <javac srcdir="src"
-	destdir="output/classes"/>
+	destdir="${dir}"/>
  </target>
  
-<target name="jar" depends="complie"> 
-    <jar destfile="dist/app.jar" basedir="output/classes"/>
+<target name="jar" depends="compile"> 
+    <jar destfile="dist/app${var}.jar" basedir="${dir}"/>
  </target> 
 
  <target name="copyweb" depends="jar"> 
@@ -38,7 +43,7 @@ Zip - create the zip folder with jar and js files
  </target>
   
  <target name="zip" depends="copyweb"> 
-    <zip destfile="trget/app1.0.zip"
+    <zip destfile="target/app${var}.zip"
 	basedir="dist"/>
 	</target>
 	
